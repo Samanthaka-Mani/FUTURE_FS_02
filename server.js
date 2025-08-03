@@ -1,18 +1,19 @@
-// server.js
-const { createServer } = require('vite');
+import express from 'express'
+import path from 'path'
+import { fileURLToPath } from 'url'
 
-async function start() {
-  const port = process.env.PORT || 4173;
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
-  const server = await createServer({
-    preview: {
-      port,
-      host: '0.0.0.0',
-    },
-  });
+const app = express()
+const port = process.env.PORT || 3000
 
-  await server.listen();
-  console.log(`Server running at http://0.0.0.0:${port}`);
-}
+app.use(express.static(path.join(__dirname, 'dist')))
 
-start();
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'))
+})
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`)
+})
