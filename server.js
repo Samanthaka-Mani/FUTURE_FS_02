@@ -11,7 +11,7 @@ const port = process.env.PORT || 3000
 // Serve static files from dist/
 app.use(express.static(path.join(__dirname, 'dist')))
 
-// Handle client-side routing
+// Handle SPA routing
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'))
 })
